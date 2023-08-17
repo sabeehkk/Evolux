@@ -1,0 +1,151 @@
+<%-include('../user/layout/nav.ejs')%>
+
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Add the Bootstrap JavaScript libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+  .error-message {
+  color: #dc3545; /* Red color for error text */
+  font-size: 14px;
+  margin-top: 5px;
+}
+/* Add some additional styles to highlight the input when there's an error */
+.form-control.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 4px rgba(220, 53, 69, 0.25);
+}
+.gradient-custom {
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+  }
+
+  .card-custom {
+    border-bottom-left-radius: 10% 50%;
+    border-top-left-radius: 10% 50%;
+    background-color: #f8f9fa;
+  }
+
+  .input-custom {
+    background-color: white;
+  }
+
+  .white-text {
+    color: hsl(52, 0%, 98%);
+    font-weight: 100;
+    font-size: 14px;
+  }
+
+  .back-button {
+    background-color: hsl(52, 0%, 98%);
+    font-weight: 700;
+    color: black;
+    margin-top: 50px;
+  }
+  .address-edit{
+    margin-top: 50px;
+    margin-left: 190px;
+    background-color: #00c6ff;
+  }
+</style>
+
+<body>
+  
+  <div class="row mt-3 mx-3" style="margin-top:25px ;">
+   
+    <div class="address-edit col-md-9 justify-content-center">
+      <div class="card card-custom pb-4">
+        <div class="card-body mt-0 mx-5">
+          <div class="text-center mb-3 pb-2 mt-3">
+            <h4 style="color: #495057 ;">Add Address</h4>
+          </div>
+          <form id="addressForm" method="post" action="/addAddress_Checkout">
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control input-custom" id="name" name="userName" required>
+                  <label for="name" class="form-label">Name:</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="housename" name="userHouseName" required>
+                  <label class="form-label" for="form9Example2">House Name</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="street" name="userStreet" required>
+                  <label class="form-label" for="form9Example3">Street</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="state" name="userState" required>
+                  <label class="form-label" for="form9Example4">State</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="pincode" name="userPincode" required pattern="[0-9]{6}">
+                  <label class="form-label" for="form9Example6">Pincode (6 digits)</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="tel" class="form-control" id="phone" name="userPhone" required pattern="[0-9]{10}">
+                  <label class="form-label" for="typeEmail">Phone (10 digits)</label>
+                </div>
+              </div>
+            </div>
+        
+            <div class="float-end">
+              <!-- Submit button -->
+              <button type="submit" class="btn-primary btn-rounded" style="background-color: #0062CC;">Submit</button>
+            </div>
+        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      // Get the form elements
+      const pincodeInput = document.getElementById('pincode');
+      const phoneInput = document.getElementById('phone');
+
+      // Regular expressions for validation
+      const pincodePattern = /^[0-9]{6}$/;
+      const phonePattern = /^[0-9]{10}$/;
+
+      // Validate pincode
+      if (!pincodePattern.test(pincodeInput.value)) {
+        alert('Pincode must be 6 digits.');
+        pincodeInput.focus();
+        return false;
+      }
+
+      // Validate phone number
+      if (!phonePattern.test(phoneInput.value)) {
+        alert('Phone number must be 10 digits.');
+        phoneInput.focus();
+        return false;
+      }
+
+      // If all validations pass, submit the form
+      document.getElementById('addressForm').submit();
+    }
+  </script>
+</body>
+</html>
+
+
+

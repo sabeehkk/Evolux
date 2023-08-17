@@ -1,0 +1,50 @@
+
+<style>
+  .history-item {
+    border: solid 3px red;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+  
+  .purchased-type {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .value {
+    font-size: 16px;
+  }
+  
+  .product-list {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .product-name {
+    color: blue;
+  }
+</style>
+
+<% userdata.walletHistory.forEach((historyItem) => { %>
+  <div class="history-item">
+    <h1 class="purchased-type">Purchased Type</h1>
+    <p><%= historyItem.valuetype %></p>
+    
+    <h1 class="value">Value</h1>
+    <p><%= historyItem.amount %></p>
+    
+    <div class="product-list">
+      <h1>Product Name(s)</h1>
+      <ul>
+        <% historyItem.product.forEach((productItem) => { %>
+          <li class="product-name"><%= productItem.productId %></li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+<% }) %>
+
+<br>
+<h1>balance wallet amount:</h1>
+<br>
+<div><%= userdata.wallet%></div>

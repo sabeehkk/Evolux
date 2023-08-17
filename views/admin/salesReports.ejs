@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Majestic Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/vendors/base/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/images/favicon.png" />
+
+
+  <style>
+    #content-wrapper {
+    background-color: #f0f0f0;
+     width: 1250px;
+}
+
+  </style>
+  
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
+          <a href="index.html"><img src="/assets/img/logo/logoEvolux.png" alt="" height="59px" width="170px"></a>
+
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-sort-variant"></span>
+          </button>
+        </div>  
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav mr-lg-4 w-100">
+         
+        </ul>
+        
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+
+
+
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/home">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">User Management System</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/category">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Category Management</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/product">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Poduct Management</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/orderManage">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Order Management</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/coupenManage">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Coupen Management</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/sales">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Sales Report</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/banner">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Banner</span>
+             </a>
+           </li>
+           
+         
+           
+        </ul>
+      </nav>
+
+      <body>
+       
+       <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+                    <h1 class="h3 mb-2 text-gray-800 text-center">Sales Report</h1>
+                    <div class="card shadow mb-4 mt-2">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Sales</h6>
+                        </div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
+<table id="example" class="display nowrap" style="width:100%">
+   
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Payment method</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (salesData && salesData.length > 0) { %>
+            <% salesData.forEach((item, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= item.date.toLocaleDateString() %></td>
+                    <td>
+                    <% item.product.forEach((x) => { %>
+                        <% if (x.productId) { %>
+                            <p><%= x.productId.name %></p>
+                        <% }  %>
+                    <% }) %>
+                    </td>
+                    <td>
+                    <% item.product.forEach((x) => { %>
+                        <p><%= x.quantity %></p>
+                    <% }) %>
+                    </td>
+                    <td><%= item.PaymentType %></td>
+                    <td><%= item.total.toFixed(2) %></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="6">
+                    <p class="text-danger">Nothing found</p>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+    
+    <tfoot>
+        <tr>
+            <th>No</th>
+            <th>Date</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Payment method</th>
+            <th>Total</th>
+        </tr>
+    </tfoot>
+</table>
+</div>
+</div>
+<!-- Footer -->
+</div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+</body>
+
+</html>

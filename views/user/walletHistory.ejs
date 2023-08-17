@@ -1,0 +1,75 @@
+<%- include('../user/layout/nav.ejs') %>
+
+
+
+<!-- Add the Bootstrap CSS link -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  /* Your custom styles */
+  .history-table {
+    margin-top: 20px;
+  }
+  
+  .history-item {
+    padding: 10px;
+  }
+  
+  .purchased-type {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3498db;
+  }
+  
+  .price {
+    font-size: 14px;
+    color: #27ae60;
+  }
+  
+  .product-name {
+    font-size: 14px;
+    color: #e74c3c;
+  }
+  
+  .wallet-total {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e67e22;
+  }
+</style>
+
+<div class="container">
+  <h2 style="margin-left: 400px; margin-top: 20px;">Wallet History</h2>
+  <table class="table table-bordered history-table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Purchased Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% userdata.walletHistory.forEach((historyItem) => { %>
+        <tr class="history-item">
+          <td>
+            <ul>
+              <% historyItem.product.forEach((productItem) => { %>
+                <li class="product-name"><%= productItem.productId.name %></li>
+              <% }) %>
+            </ul>
+          </td>
+          <td class="price"><%= historyItem.amount %></td>
+          <td class="purchased-type"><%= historyItem.valuetype %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  
+  <h3 class="wallet-total">Wallet Total Price: <%= userdata.wallet %></h3>
+</div>
+
+<!-- Add the Bootstrap JS scripts at the end of the body -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

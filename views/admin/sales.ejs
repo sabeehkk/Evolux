@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Majestic Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/vendors/base/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="/images/favicon.png" />
+
+
+  <style>
+    /* .card-body{
+      margin-left: 300px;
+    } */
+  </style>
+  
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
+          <a href="index.html"><img src="/assets/img/logo/logoEvolux.png" alt="" height="59px" width="170px"></a>
+
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-sort-variant"></span>
+          </button>
+        </div>  
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav mr-lg-4 w-100">
+         
+        </ul>
+        
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+
+
+
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/home">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/dashboard">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">User Management System</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/category">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Category Management</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/admin/product">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Poduct Management</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/orderManage">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Order Management</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/coupenManage">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Coupen Management</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/sales">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Sales Report</span>
+             </a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link" href="/admin/banner">
+               <i class="mdi mdi-grid-large menu-icon"></i>
+               <span class="menu-title">Banner</span>
+             </a>
+           </li>
+           
+          
+           
+        </ul>
+      </nav>
+
+                    <!-- SALES--------------------------------------------------- -->
+
+                    <div id="content-wrapper" class="d-flex flex-column" style="width: 100%; margin-left: 210px;">
+                      <!-- Main Content -->
+                      <div id="content">
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+                          <!-- Page Heading -->
+                          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 style="margin-left: 110px;">Sales Management</h1>
+                          </div>
+                          <section class="section dashboard">
+                            <div class="row">
+                              <div class="card br-8px" style="border-block-color:inherit">
+                                <div class="card-body">
+                                  <br>
+                                  <!-- Vertical Form -->
+                                  <form class="row g-3" action="/admin/getDate" method="post" onsubmit="return validateDates()">
+                                    <div class="col-6">
+                                      <label for="from" class="form-label">Date from</label>
+                                      <input type="date" class="form-control" id="from" name="first" max="<%= (new Date()).toISOString().split('T')[0] %>">
+                                    </div>
+                                    <div class="col-6">
+                                      <label for="to" class="form-label">Date to (Past days only)</label>
+                                      <input type="date" class="form-control" id="to" name="second" max="<%= (new Date()).toISOString().split('T')[0] %>" onchange="validateDates()">
+                                    </div>
+                                    <% if (message) { %>
+                                    <p style="color: brown;"><%= message %> </p>
+                                    <% } %>
+                                    <div class="text-center pt-3">
+                                      <button type="submit" class="btn btn-success" style="float: right; padding-inline: 50px;">Submit</button>
+                                    </div>
+                                  </form><!-- End Vertical Form -->
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <script>
+                      function validateDates() {
+                        var fromDate = new Date(document.getElementById("from").value);
+                        var toDate = new Date(document.getElementById("to").value);
+                    
+                        if (fromDate > toDate) {
+                          var alertDiv = document.createElement("div");
+                          alertDiv.className = "custom-alert";
+                          alertDiv.textContent = "Date from cannot be greater than Date to";
+                          document.body.appendChild(alertDiv);
+                          return false;
+                        }
+                    
+                        return true;
+                      }
+                    </script>
+                    
+                    <!-- Add the Bootstrap JS scripts at the end of the body -->
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                  
+                  <style>
+                      .custom-alert {
+                          position: fixed;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          background-color: #f44336;
+                          color: white;
+                          padding: 10px 20px;
+                          border-radius: 5px;
+                          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                          font-weight: bold;
+                      }
+                  </style>
+                  

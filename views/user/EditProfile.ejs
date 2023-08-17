@@ -1,0 +1,152 @@
+ <%-include('../user/layout/nav.ejs')%> 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+</head>
+
+<style>
+  .error-message {
+  color: #dc3545; /* Red color for error text */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Add some additional styles to highlight the input when there's an error */
+.form-control.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 4px rgba(220, 53, 69, 0.25);
+}
+</style>
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <h2 style="margin-left: 500px;">Edit Profile</h2>
+
+        </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-">
+          <div class="card-body text-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog">
+
+            <h5 class="my-3"><%= userdata.firstName %></h5>
+          </div>
+        </div>
+     
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <form action="/updateProfile" method="POST" onsubmit="return validateForm()">
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="firstName" class="form-label">First Name</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="firstName" name="firstName" value="<%= userdata.firstName %>" required>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="lastName" class="form-label">Last Name</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="lastName" name="lastName" value="<%= userdata.lastName %>" required>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="email" class="form-label">Email</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="email" name="email" value="<%= userdata.email %>" required>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="mobile" class="form-label">Mobile</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="number" class="form-control" id="mobile" name="mobile" value="<%= userdata.mobile %>" required>
+                </div>
+              </div>
+              <hr>
+            
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="lastName" class="form-label">Current Password</label>
+                  
+                </div>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="lastName" name="CurrentPassword" value="" placeholder="*******" >
+                </div>
+              </div>
+              <hr>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="lastName" class="form-label">New Password</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="lastName" name="NewPassword" value="" placeholder="*******" >
+                </div>
+              </div>
+              <hr>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label for="lastName" class="form-label">Confirm Password</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="lastName" name="RePassword" value="" placeholder="*******" >
+                </div>
+              </div>
+              <hr>
+              <div class="error-message" id="mobile-error"></div>
+              <div class="row">
+                <div class="col-sm-9">
+                  <button type="submit" class="btn_1 delete-button" style="font-size: 12px; padding: 6px 12px;">Update Profile</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function validateForm() {
+    var mobileInput = document.getElementById('mobile');
+    var mobileValue = mobileInput.value;
+    var cleanedMobileValue = mobileValue.replace(/\D/g, '');
+    if (cleanedMobileValue.length !== 10) {
+      var errorMessage = document.getElementById('mobile-error');
+      errorMessage.textContent = 'Mobile number should be exactly 10 digits long.';
+      mobileInput.classList.add('error');
+      return false; // Prevent form submission
+    } else {
+      var errorMessage = document.getElementById('mobile-error');
+      errorMessage.textContent = '';
+      mobileInput.classList.remove('error');
+    }
+
+    return true;
+  }
+</script>
+

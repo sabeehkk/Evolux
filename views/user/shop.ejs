@@ -1,0 +1,343 @@
+<%-include('../user/layout/nav.ejs')%>
+
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<body>
+	<style>
+		 .single-product img {
+    transition: transform 0.3s ease-in-out; /* Add transition property for smooth zoom effect */
+  }
+
+  .single-product img:hover {
+    transform: scale(1.1); /* Add scaling transformation on hover */
+  }
+
+  .latest-padding {
+    padding: 30px; /* Adjust the value as per your requirement */
+}
+.wishlist-icon{
+            display: flex;
+            justify-content: flex-end;
+        }
+		.fas{
+			color: rgb(167, 171, 169);
+        }
+
+	</style>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+	
+	<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <main>
+        <section class="popular-items latest-padding">
+
+<!-- Filter Actions -->
+<section>
+	<div class="container">
+	  <div class="row justify-content-end">
+		<div class="col-md-8">
+		  <div class="d-flex justify-content-end align-items-center p-3">
+			<div class="filter-button">
+				<button class="btn-primary btn-sm js-show-filter btn-white">
+					<i class="fas fa-filter"></i>
+					Filter
+				</button>
+			</div>
+			<div class="search-button ml-2">
+			  <button class=" btn-primary btn-sm js-show-search btn-white">
+				<i class="fas fa-search"></i>
+				Search
+			  </button>
+			</div>
+		  </div>
+  
+		  <!-- Search product -->
+		  <div class="panel-search p-3"  style="display: none;">
+			<div class="input-group">
+			  <input type="text" class="search-input form-control" onkeyup="sendData(this)" name="search" placeholder="Search">
+			  <div class="input-group-append">
+				<button class="btn btn-primary" onclick="searchData()" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			  </div>
+			</div>
+			<div class="searchResults"></div>
+		  </div>
+
+		  <div class="panel-filter p-3" style="display: none;">
+			<div class="row">
+			  <div class="col-md-4">
+				<div class="filter-category">
+				  <h6 class="text-primary">Categories</h6>
+				  <ul class="list-unstyled">
+					<% category.forEach((x) => { %>
+					  <li>
+						<a onclick="category_filter('<%= x._id%>')" href="#" class="filter-link text-primary">
+						  <%= x.name %>
+						</a>
+					  </li>
+					<% }) %>
+				  </ul>
+				</div>
+			  </div>
+  
+			  <div class="col-md-4">
+				<div class="filter-price">
+				  <h6 class="text-primary">Price</h6>
+				  <ul class="list-unstyled">
+					<li>
+					  <a href="#" onclick="all_products()" class="filter-link filter-link-active text-primary">All</a>
+					</li>
+					<li>
+					  <a href="#"  onclick="price(0,30000)" class="filter-link text-primary">₹0 - ₹30000</a>
+					</li>
+					<li>
+					  <a href="#" onclick="price(30000,60000)"  class="filter-link text-primary">30000 - 60000</a>
+					</li>
+					<li>
+					  <a href="#" onclick="price(75000,100000)" class="filter-link text-primary">75000 - 100000</a>
+					</li>
+					<!-- <li>
+					  <a href="#" onclick="price(100000,125000)"  class="filter-link text-primary">100000 - 125000</a>
+					</li> -->
+					<li>
+					  <a href="#" onclick="price(50000,200000)" class="filter-link text-primary">50000+</a>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+  
+			  <div class="col-md-4">
+				<div class="filter-sort">
+				  <h6 class="text-primary">Sort By</h6>
+				  <ul class="list-unstyled">
+					<li>
+					  <a href="#" onclick="all_products()" class="filter-link filter-link-active text-primary">All</a>
+					</li>
+					<li>
+					  <a href="#" onclick="priceLeval(1)" class="filter-link text-primary">Price: Low to High</a>
+					</li>
+					<li>
+					  <a href="#" onclick="priceLeval(-1)" class="filter-link text-primary">Price: High to Low</a>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+   
+<section style="background-color: #ffffff;">
+    <div class="container py-5">
+      <header class="mb-4">
+        <h4 class="text-center mt-4 mb-5"><strong>Bestsellers</strong></h4>
+      </header>
+      <div class="product-item  row ">
+        <% if (products.length > 0) { %>
+          <% products.forEach((item) => { %>
+            <div class="col-lg-3 col-md-6 product-item">
+              <div class="single-product">
+                <!-- <div class="favorit-items">
+                  <a href="/addWishlist/<%=item.id%>" method="get">
+                    <span class="flaticon-heart"></span>
+                  </a>
+                </div> -->
+				<a href="/addWishlist/<%=item.id%>"  method="get"><span class="wishlist-icon" ><i class="fas fa-heart" id="wishlist-icon"></i></span ></a>
+
+                <a href="/productview/<%= item._id %>">
+                  <img class="img-fluid product-image" src="<%= '/product_images/' + item.image[0].fileName %>" alt="Product Image">
+                </a>
+                <div class="product-details" style="height: 50px; position: relative;">
+                  <h6 class="product-name overflow-hidden"><%= item.name %></h6>
+                  <div class="price">
+                    <h6>₹<%= item.price.toFixed(2) %></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div class="col-12 text-center">
+            <p>No products found.</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+<!-- PRODUCT LISTING.. -->
+</body>
+<!-- pagination -->
+  
+<% if (size){ %>
+	<nav aria-label="Page navigation example pagination-">
+		<ul id="pagination" class="pagination pagination-sm justify-content-center">
+		  <% for (let i = 1; i <= size; i++) { %>
+			<% if (i == page) { %>
+			  <li class="page-item active">
+				<a onclick="pagination('<%= i %>')"  class="page-link active" tabindex="-1"><%= i %></a>
+			  </li>
+			<% } else { %>
+			  <li class="page-item">
+				<a onclick="pagination('<%= i %>')"class="page-link"><%= i %></a>
+			  </li>
+			<% } %>
+		  <% } %>
+		  
+		</ul>
+	  </nav>
+
+<% } %>
+<script>
+	$(document).ready(function () {
+	$('.js-show-filter').click(function () {
+		$('.panel-filter').toggle();
+	});
+
+	$('.js-show-search').click(function () {
+		$('.panel-search').toggle();
+	});
+	});
+  </script>
+
+
+
+
+  <script>
+var category='';
+var searchValue='';
+var low ='';
+var high ='';
+var priceLow='';
+	function pagination(num) {
+		console.log(low, high)
+		$.ajax({
+		url: `/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow}`,
+		method: 'get',
+		success: (response) => {
+			console.log(num);
+			// console.log(response);
+			$('#pagination').load(`/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow} #pagination`);
+			$('.product-item').load(`/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow} .product-item`);
+			  $('#productList').load(`/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow} #productList`);
+
+		 	 $('.product-item-').load(`/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow} .product-item-`);
+			  $('#product-item-').load(`/allProducts?page=${num}&category=${category}&search=${searchValue}&low=${low}&high=${high}&priceLow=${priceLow} #product-item-`);
+			}
+		});
+	}
+	function category_filter(categoryId){
+		this.category = categoryId
+		$.ajax({
+			url:`/allProducts?category=${categoryId}`,
+			method:'get',
+			success:(response)=>{
+				console.log(categoryId)
+			  $('.product-item').load(`/allProducts?category=${category} .product-item`);
+			  $('#productList').load(`/allProducts?category=${category} #productList`);
+			  $('#pagination').load(`/allProducts?category=${category} #pagination`);
+
+			}
+		})
+	}
+
+function sendData(e) {
+  var data = { search: e.value };
+  const searchResults = document.querySelector('.searchResults');
+  let match = e.value.match(/^[a-zA-Z ]*/);
+  let match2 = e.value.match(/\s*/);
+  if (match2[0] == e.value) {
+    searchResults.innerHTML = '';
+    return;
+  }
+  if (match[0] == e.value) {
+    $.ajax({
+      url: '/search',
+      method: 'post',
+      data: data,
+      success: function(response) {
+        if (response.payload.length < 1) {
+          searchResults.innerHTML = '<p>Sorry. Nothing Found.</p>';
+          return;
+        }
+        searchResults.innerHTML = '';
+        response.payload.forEach((item, index) => {
+            if (index > 0) searchResults.innerHTML += '<hr>';
+  			searchResults.innerHTML += `<div class="product-item">
+				<a href="/product-detail/${item.productId}"><p><img class="img-fluid sm-product-image" src="/proImages/${item.images[0]}" alt="Product Image"></a>
+                                ${item.name}</p>
+                              </div>`;
+        });
+        console.log(response.payload);
+      }
+    });
+    return;
+  }
+  searchResults.innerHTML = '';
+}
+
+function price(low, high){
+	this.low = low;
+	this.high = high;
+	$.ajax({
+		url:`/allProducts?low=${low}&high=${high}`,
+		method:'get',
+		success:(response)=>{
+      $('.product-item').load(`/allProducts?low=${low}&high=${high} .product-item`);
+			  $('#productList').load(`/allProducts?low=${low}&high=${high} #productList`);
+			  $('#pagination').load(`/allProducts?low=${low}&high=${high} #pagination`);
+		}
+	})
+}
+
+function searchData(){
+	searchValue = $('.search-input').val();
+	$.ajax({
+		url:`/allProducts?search=${searchValue}&category=${this.category}`,
+		method:'get',
+		success:(response)=>{
+			$('.product-item').load(`/allProducts?search=${searchValue}&category=${category} .product-item`);
+			$('.searchResults').load(`/allProducts?search=${searchValue}&category=${category} .searchResults`);
+			$('#productList').load(`/allProducts?search=${searchValue}&category=${category} #productList`);
+			$('.search-input').val("");
+		}
+	})
+}
+function all_products(){
+	this.low= this.high= this.category= this.priceLow= this.searchValue='' ;
+	$.ajax({
+		url:`/allProducts`,
+		method:'get',
+		success:(response)=>{
+      $('.product-item').load(`/allProducts .product-item`);
+			  $('#productList').load(`/allProducts #productList`);
+			  $('#pagination').load(`/allProducts #pagination`);
+		}
+	})
+}
+
+function priceLeval(priceLow){
+	this.priceLow = priceLow;
+	$.ajax({
+		url:`/allProducts?priceLow=${priceLow}`,
+		method:'get',
+		success:(response)=>{
+      $('.product-item').load(`/allProducts?priceLow=${priceLow} .product-item`);
+			  $('#productList').load(`/allProducts?priceLow=${priceLow} #productList`);
+			  $('#pagination').load(`/allProducts?priceLow=${priceLow} #pagination`);
+
+		}
+	})
+}
+
+
+  </script>

@@ -1,0 +1,92 @@
+<%- include('../user/layout/nav.ejs') %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+<div class="container mt-4">
+  <table id="example" class="data-table table table-striped">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>OrderId</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Action</th>
+        <th>Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (orders.length > 0){ %>
+      <% orders.forEach((item, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= item.orderId %></td>
+        <td><%= item.date.toLocaleDateString() %></td>
+        <td><%= item.total.toFixed(2) %></td>
+        <td><%= item.PaymentType %></td>
+        <td>
+          <% if (item.status == 'pending') { %>
+          <p class="text-danger">Pending</p>
+          <% } else if (item.status == 'cancel') { %>
+          <p class="text-danger">Canceled</p>
+          <% } else if (item.status == 'confirmed') { %>
+          <p class="text-success">Delivered</p>
+          <% } else if (item.status == 'Return') { %>
+          <p class="text-danger">Returned</p>
+          <% } else { %>
+          <p><%= item.status %></p>
+          <% } %>
+        </td>
+        
+        <td>
+          <% if (item.status == 'delivered') { %>
+          <a href="/userOrderAction?orderId=<%= item.orderId %>&action=Returned&paymentType=<%= item.PaymentType %>">
+            <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Return</button>
+          </a>
+          <% } else if (item.status == 'pending' || item.status == 'shipped') { %>
+          <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
+            <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Cancel</button>
+          </a>
+          <% } else if (item.status == 'cancel') { %>
+          <p class="text-danger">Canceled</p>
+          <% } else if (item.status == 'Return') { %>
+          <p style="color: green;" class="text-success">Returned</p>
+          <% } else if (item.status == 'processing') { %>
+          <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
+            <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Cancel</button>
+          </a>
+          <% } %>
+        </td>
+        <td>
+          <a href="/orderDetails?orderId=<%= item.orderId %>">info</a>
+        </td>
+      </tr>
+      <% }) %>
+      <% } %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>No</th>
+        <th>OrderId</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Action</th>
+        <th>Info</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#example').DataTable();
+  });
+</script>

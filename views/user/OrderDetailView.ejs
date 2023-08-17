@@ -1,0 +1,139 @@
+<%-include('../user/layout/nav.ejs')%>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .gradient-custom {
+            background: #160e1c;
+            background: -webkit-linear-gradient(to top left, rgb(15, 0, 26), rgba(246, 243, 255, 1));
+            background: linear-gradient(to top left, rgb(19, 17, 20), rgba(246, 243, 255, 1));
+            margin-top: 5rem;
+        }
+
+        .order-info {
+            margin-bottom: 2rem;
+        }
+
+        .order-info h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .order-info p {
+            font-size: 18px;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-info .order-id {
+            font-weight: bold;
+        }
+
+        .order-info .order-date {
+            font-style: italic;
+        }
+
+        .order-info .shipping-address {
+            white-space: pre-line;
+        }
+
+        .big_img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    
+        <div class="container py-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card" style="border-radius: 10px;">
+                        <div class="card-header p-4" style="background-color: #333131;">
+                            <a href="/" style="color: #ffffff;">
+                                <h5 class="text-muted mb-0">Continue shopping!</h5>
+                            </a>
+                        </div>
+                        <div class="card-body p-4">
+                            <% if (product.length > 0) { %>
+                                <% product.forEach((item) => { %>
+                                    <div class="card shadow-sm mb-4">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="<%= '/product_images/'+ item.productId.image[0].fileName %>" class="img-fluid" alt="Phone">
+                                                </div>
+                                                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                    <p class="text-muted mb-0"><%= item.productId.name %></p>
+                                                </div>
+                                                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                    <p class="text-muted mb-0 small">Qty: <%= item.quantity %></p>
+                                                </div>
+                                                <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
+                                                    <!-- Add any content for the middle column here -->
+                                                </div>
+                                                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                    <p class="text-muted mb-0 small">₹ <%= item.productId.price*item.quantity  %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                            <div class="order-info">
+                                <h2>Order Details</h2>
+                                <div class="d-flex justify-content-between">
+                                    <p class="text" style="color: rgb(0, 0, 0);"><strong>Name :</strong> <%= userdata.firstName %></p>
+                                </div>
+                                <p style="color: rgb(0, 0, 0);">
+                                    <strong>Order ID:</strong>
+                                    <span class="order-id"></span><%= data.orderId %>
+                                </p>
+                                
+                                                          <p style="color: rgb(0, 0, 0);"></p><strong>Order Date:</strong> <span class="order-date" style="color:rgb(0, 0, 0);"><%= data.date.toLocaleDateString() %></span></p>
+                                <p style="color: rgb(0, 0, 0);"><strong>Shipping Address:</strong> <span class="shipping-address" style="color:rgb(0, 0, 0);"><%= data.deliveryaddress.name %>,
+                                        <%= data.deliveryaddress.housename %>, <%= data.deliveryaddress.street %>,
+                                        <%= data.deliveryaddress.state %>, <%= data.deliveryaddress.pincode %></span>
+                                </p>
+                                <p style="color: rgb(0, 0, 0);"><strong>Mobile:</strong> <span class="shipping-address" style="color: rgb(0, 0, 0);"><%= data.deliveryaddress.phone %></span></p>
+                            </div>
+                            
+                            
+
+                            <div class="card-footer border  -0 px-4 d-flex justify-content-between " style="background-color: #1e1e1e; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                <a href="/allProducts" class="btn btn-outline-warning ">Continue shopping
+                                </a>
+                                <h6 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0  "><span class="h6  mb-0">Total
+                                    amount : <%= data.total %></span></h6>
+                              </div>
+                            
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+</body>
+</html>

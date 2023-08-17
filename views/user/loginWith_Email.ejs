@@ -1,0 +1,223 @@
+<%-include('../user/layout/nav.ejs')%>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Address</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+</head>
+<body>
+  <style>
+     body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+   
+    .login_box_area {
+      padding-top: 0;
+      margin-left: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login_form_inner {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    .login_form_inner h3 {
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+    .login_form_inner p {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .login_form_inner .primary-btn {
+      background-color: #007bff;
+      border-color: #007bff;
+      width: 100%;
+    }
+    .login_form_inner .primary-btn:hover {
+      background-color: #0056b3;
+    }
+    .login_form_inner .form-control {
+      border-radius: 5px;
+      box-shadow: none;
+    }
+    .login_form_inner .form-control:focus {
+      box-shadow: none;
+      border-color: #007bff;
+    }
+    .login_form_inner .btn-block {
+      margin-top: 20px;
+    }
+  
+    .otp_form_inner {
+      padding-top: 0;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      display: none;
+    }
+    .otp_form_inner.active {
+      display: block;
+    }
+    .otp_form_inner h3 {
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+    .otp_form_inner h6 {
+      color: #dc3545;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .otp_form_inner .text-center {
+      margin-bottom: 15px;
+    }
+    .otp_form_inner .primary-btn {
+      background-color: #007bff;
+      border-color: #007bff;
+      width: 100%;
+    }
+    .otp_form_inner .primary-btn:hover {
+      background-color: #0056b3;
+    }
+    .otp_form_inner .form-control {
+      border-radius: 5px;
+      box-shadow: none;
+    }
+    .otp_form_inner .form-control:focus {
+      box-shadow: none;
+      border-color: #007bff;
+    }
+    .otp_form_inner .btn-block {
+      margin-top: 20px;
+    }
+  </style>
+</body>
+</html>
+
+
+<section class="login_box_area section_gap">
+  <div class="container">
+      <div class="row justify-content-center"> <!-- Added 'justify-content-center' class to center the content -->
+        <div class="col-lg-6">
+          <div class="login_form_inner" style="display: block;">
+            <h3 class="text-center">Login</h3> <!-- Added 'text-center' class to center the heading -->
+            <p>Get access to your <br> Orders, Wishlist and <br> Recommendations</p>
+            <div class="row login_form" id="contactForm" novalidate="novalidate">
+              <div class="col-md-12 form-group">
+                <input required type="email" name="email" class="form-control text-center" id="emailId" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email ID '">
+            </div>
+            <div class="col-md-12 form-group">
+              <button type="button" onclick="login_with_email()" class="primary-btn">Log In</button> 
+          </div>
+            </div>
+          </div>
+
+          <div class="otp_form_inner" style="display: none;">
+            <h3 class="text-center">Login</h3>
+            <h6 class="text-danger text-center">Please enter the one time password <br> to verify your account</h6>
+            <div class="text-center"> <span>A code has been sent to your Email</span> <small id="userMobilenumber"> XXXXXXXXXX</small> </div>
+  
+            <div class="row login_form" id="contactForm" novalidate="novalidate">
+              <div class="col-md-12 form-group">
+                <input required type="number" name="otp" class="form-control text-center" id="otpCode" placeholder="X X X X X X" maxlength="6">
+              </div>
+              <div class="col-md-12 form-group">
+                <button type="button" onclick="otp_verify()" class="primary-btn">Validate</button>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="container height-100 d-flex justify-content-center align-items-center m-5" style="display: block;">
+        </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    
+  
+  <script>
+  
+  function login_with_email() {
+    var email = $("#emailId").val(); // Use the correct ID "emailId" here
+
+
+        $.ajax({
+            url: '/login_with_Email',
+            method: 'post',
+            data: { email: email }, // Use "email" instead of "number" as the key
+            success: function(response) {
+                // Handle the response
+                if(response.response.error){
+                  Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "User not found"
+          });
+                }else if (response.response.success) {
+                  $(".login_form_inner").remove();
+          $(".otp_form_inner").css("display", "block");
+          $("#userMobilenumber").text(email);
+          //         Swal.fire({
+          //   icon: 'error',
+          //   title: 'success...',
+          //   text: "User  found"
+          // });
+                }
+                
+            }
+        });
+    }
+
+
+    function validateEmail(email) {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+  function otp_verify(){
+    console.log('kitty');
+    var otp = $("#otpCode").val();
+    var email = $("#userMobilenumber").text().trim();
+    console.log(otp, email,'otp,email kittyyyy')
+    if(otp.length != 6){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Invalid OTP'
+      });
+    }
+    $.ajax({
+      url:'/login_with_Email_otp',
+      method:'post',
+      data:{otp: otp, email: email},
+      success:(response)=>{
+        if(response.response.success){
+          window.location.href = "/";
+        }else if (response.response.error){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid OTP'
+          });
+        }
+      }
+    })
+  }
+
+  </script>

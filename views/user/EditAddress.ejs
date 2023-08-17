@@ -1,0 +1,153 @@
+
+<%-include('./layout/nav.ejs') %>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+</head>
+<title>Edit Address</title>
+
+<style>
+   .error-message {
+  color: #dc3545; /* Red color for error text */
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Add some additional styles to highlight the input when there's an error */
+.form-control.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 4px rgba(220, 53, 69, 0.25);
+}
+.gradient-custom {
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+  }
+
+  .card-custom {
+    border-bottom-left-radius: 10% 50%;
+    border-top-left-radius: 10% 50%;
+    background-color: #f8f9fa;
+  }
+
+  .input-custom {
+    background-color: white;
+  }
+
+  .white-text {
+    color: hsl(52, 0%, 98%);
+    font-weight: 100;
+    font-size: 14px;
+  }
+
+  .back-button {
+    background-color: hsl(52, 0%, 98%);
+    font-weight: 700;
+    color: black;
+    margin-top: 50px;
+  }
+  .address-edit{
+    margin-top: 50px;
+    background-color: #00c6ff;
+    margin-left: 190px;
+  }
+</style>
+
+<body>
+
+  <div class="row mt-3 mx-3" style="margin-top:25px ;">
+   
+    <div class="address-edit col-md-9 justify-content-center">
+      <div class="card card-custom pb-4">
+        <div class="card-body mt-0 mx-5">
+          <div class="text-center mb-3 pb-2 mt-3">
+            <h4 style="color: #495057 ;">Edit Address</h4>
+          </div>
+          <form action="/UpdateAddress"  method="POST" onsubmit="return validateForm()">
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control input-custom" id="name" name="name" value="<%=addressData.name %>" required>
+                  <label for="name" class="form-label">Name:</label>
+                </div>
+              </div>
+              <input type="hidden" name="id" value="<%=addressData._id %>">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="housename" name="housename" value="<%=addressData.housename %>" required>
+                  <label class="form-label" for="form9Example2">House Name</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="street" name="street" value="<%=addressData.street %>" required>
+                  <label class="form-label" for="form9Example3">Street</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="state" name="state" value="<%=addressData.state %>" required>
+                  <label class="form-label" for="form9Example4">State</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" class="form-control" id="pincode" name="pincode" value="<%=addressData.pincode %>" required pattern="[0-9]{6}" >
+                  <label class="form-label" for="form9Example6">Pincode (6 digits)</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="tel" class="form-control" id="phone" name="phone" value="<%=addressData.phone %>" required pattern="[0-9]{10}">
+                  <label class="form-label" for="typeEmail">Phone (10 digits)</label>
+                </div>
+              </div>
+            </div>
+        
+            <div class="float-end">
+              <!-- Submit button -->
+              <button type="submit" class="btn-primary btn-rounded" style="background-color: #0062CC;">Submit</button>
+            </div>
+        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function validateForm() {
+      var mobileInput = document.getElementById('phone');
+      var mobileValue = mobileInput.value;
+  
+      // Remove any spaces or special characters from the mobile number
+      var cleanedMobileValue = mobileValue.replace(/\D/g, '');
+  
+      if (cleanedMobileValue.length !== 10) {
+        var errorMessage = document.getElementById('mobile-error');
+        errorMessage.textContent = 'Mobile number should be exactly 10 digits long.';
+        mobileInput.classList.add('error');
+        return false; // Prevent form submission
+      } else {
+        // Clear the error message and remove the error style if the validation is successful
+        var errorMessage = document.getElementById('mobile-error');
+        errorMessage.textContent = '';
+        mobileInput.classList.remove('error');
+      }
+  
+      // If the validation is successful, the form will be submitted
+      return true;
+    }
+  </script>
+  
+</body>
+
+</html>

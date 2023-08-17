@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zxx">
+    
+
+<body>
+    
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Watch shop | eCommers</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- CSS here -->
+    <!-- <link rel="stylesheet" href="path/to/flaticon.css"> -->
+
+        <link rel="stylesheet" href="/assets/css/style.css">
+
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/assets/css/flaticon.css">
+        <link rel="stylesheet" href="/assets/css/slicknav.css">
+        <link rel="stylesheet" href="assets/css/animate.min.css">
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="assets/css/themify-icons.css">
+        <link rel="stylesheet" href="assets/css/slick.css">
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+        <style>
+
+            
+            a {
+    text-decoration: none;
+}
+
+          body {background-color: #ffffff}
+          .card {border: none}
+          .product {background-color:  #ffffff}
+          .brand {font-size: 13px}
+          .act-price {color: red; font-weight: 700}
+          .dis-price {text-decoration: line-through}
+          .about {font-size: 14px}
+          .color {margin-bottom: 10px}
+          label.radio {cursor: pointer}
+          label.radio input {position: absolute; top: 0; left: 0; visibility: hidden; pointer-events: none}
+          label.radio span {padding: 2px 9px; border: 2px solid #ff0000; display: inline-block; color: #ff0000; border-radius: 3px; text-transform: uppercase}
+          label.radio input:checked+span {border-color: #ff0000; background-color: #ff0000; color:#c00f0f}
+          .btn-danger {background-color: #ff0000 !important; border-color: #ff0000 !important}
+          .btn-danger:hover {background-color: #da0606 !important; border-color: #da0606 !important}
+          .btn-danger:focus {box-shadow: none}
+          .cart i {margin-right: 10px}
+          ul {float: left;}
+          ul li {list-style-type: none; margin-bottom: 10px;}
+          ul li img {width: 70px; height: 70px;}
+          .big_img {width: 350px; height: 400px; float: left; margin-top: 20px; margin-left: 10px;}
+        </style>
+
+
+</head>
+
+    
+
+<body>
+
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="/assets/img/logo/logoEvolux.png" alt="" height="100px" width="170px"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/allProducts">shop</a></li>
+                                    <li><a href="#">Pages</a>
+                                        <ul class="submenu">
+                                            <li><a href="/logout">logout</a></li>
+                                            <li><a href="/cart">Cart</a></li>
+                                            <li><a href="elements.html">Element</a></li>
+                                            <li><a href="confirmation.html">Confirmation</a></li>
+                                            <li><a href="checkout.html">Product Checkout</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li><a href="">Category</a>
+                                      <ul class="submenu">
+                                        <% categoryDataNav.forEach((x) => { %>
+                                          <li><a href="/allProducts?category=<%=x._id%>"><%=x.name%></a></li>
+                                          <% }); %>
+                                      </ul>
+                                         
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <li> <a href="/wishlist"><span class="flaticon-heart"></span></a></li>
+                                <li> <a href="/user"><span class="flaticon-user"></span></a></li>
+                                <li><a href="/cart"><span class="flaticon-shopping-cart"></span></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    
+ 
+    <main>
+      
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <div class="container mt-5 mb-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="images p-3">
+                      <ul class="small-images">
+        
+        
+                        <% productData.image.forEach( (image)=> { %>
+                          <li><img src="<%= '/product_images/' + image.fileName %>"></li>
+        
+                        <% }); %>
+        
+        
+                        
+                      
+                      </ul>
+                      <img src="<%= '/product_images/' + productData.image[0].fileName %>" class="big_img" id="main-image">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="product p-4">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back</span> </div> <i class="fa fa-shopping-cart text-muted"></i>
+                      </div>
+                      <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Orianz</span>
+                        <h5> <%= productData.name %> </h5>
+                      
+                        </div>
+                      </div>
+                      <p class="about">Shop from a wide range of t-shirts from Orianz. Perfect for your everyday use, you can pair it with a stylish pair of jeans or trousers to complete the look.</p>
+                    
+
+                      <!-- <form action="/addTocart/<%= productData._id %>" method="POST">
+                        <div class="add_to_cart">
+                            <button type="submit" class="btn_3">add to cart</button>
+                        </div>
+                    </form> -->
+
+                    <form action="/addTocart/<%= productData._id %>" method="POST">
+                        <div class="add_to_cart">
+                    <button type="submit" class="btn_1 delete-button" style="font-size: 12px; padding: 8px 18px;">add to cart</button>
+                         </div>
+                      </form>
+                  
+                    
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/imagezoomsl@1.0.2/js/imagezoomsl.min.js"></script>
+        
+        
+        <script src="/zoomsl.js" type="text/javascript"></script> 
+        
+        
+        
+        <script type="text/javascript"> 
+          $(document).ready(function(){
+              $(".small_img").hover(function(){
+                  $(".big_img").attr('src',$(this).attr('src'))
+              })
+          })
+          </script>
+          
+          <script type="text/javascript">
+              $(document).ready(function() {
+                $(".big_img").imagezoomsl({
+                  zoomrange: [1, 5]
+                });
+              });
+              </script>
+          
+        
+        
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $(".small-images li img").hover(function(){
+              var src = $(this).attr('src');
+              $(".big_img").attr('src', src);
+            });
+            $(".big_img").imagezoomsl({
+              zoomrange: [1, 5]
+            });
+          });
+        </script>
+
+        <!--================Single Product Area =================-->
+        <br><br><br>
+        <!--================End Single Product Area =================-->
+        <!-- subscribe part here -->
+        <section class="subscribe_part section_padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="subscribe_part_content">
+                            <h2>Get promotions & updates!</h2>
+                            <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources credibly innovate granular internal .</p>
+                            <div class="subscribe_form">
+                                <input type="email" placeholder="Enter your mail">
+                                <a href="#" class="btn_1">Subscribe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- subscribe part end -->
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do eiusmod tem.</p>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#"> Offers & Discounts</a></li>
+                                    <li><a href="#"> Get Coupon</a></li>
+                                    <li><a href="#">  Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>New Products</h4>
+                                <ul>
+                                    <li><a href="#">Woman Cloth</a></li>
+                                    <li><a href="#">Fashion Accessories</a></li>
+                                    <li><a href="#"> Man Accessories</a></li>
+                                    <li><a href="#"> Rubber made Toys</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Support</h4>
+                                <ul>
+                                    <li><a href="#">Frequently Asked Questions</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Report a Payment Issue</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Footer bottom -->
+
+
+                <div class="row align-items-center">
+                    <div class="col-xl-7 col-lg-8 col-md-7">
+                        <div class="footer-copy-right">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>                   
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-4 col-md-5">
+                        <div class="footer-copy-right f-right">
+                            <!-- social -->
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-behance"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+
+    <!-- JS here -->
+
+      
+
+        
+
+</body>
+
+</html>

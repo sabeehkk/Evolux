@@ -1,0 +1,181 @@
+<%-include('./layout/header') %>
+
+<style>
+  .custom-button {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+</style>
+
+<body>
+
+  <div>
+    <section class="vh-30" style="background-color:  rgb(255, 255, 255); color: black;">
+      <div class="container h-30">
+        <div class="row d-flex justify-content-center align-items-center h-30">
+          <div class="col-lg-12 col-xl-11">
+            <div class="card text-black" style="border-radius: 25px;">
+              <div style="background-color: rgb(255, 255, 255);" class="card-body p-md-5">
+                <div style="background-color: rgb(255, 255, 255);" class="row justify-content-center">
+                  <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                    <form action="/signup" method="post" class="mx-1 mx-md-4" onsubmit="return userlogin()" name="form">
+
+                      <div class="d-flex flex-row align-items-center mb-3">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <!-- <input type="text" name="name" id="form3Example1c" class="form-control" style="color: black;" /> -->
+                          <!-- <input type="text" name="name" id="form3Example1c" class="form-control" style="color: black;" /> -->
+                          <input type="text" name="name" id="form3Example1c" class="form-control" style="color: black;" />                          
+                          <label class="form-label" for="form3Example1c">First Name</label>
+                        </div>
+                      </div>
+
+                      
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" name="lname" id="form3Example1c" class="form-control" style="color: black;" />
+                          <label class="form-label" for="form3Example1c">Last Name</label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="email" name="email" id="form3Example3c" class="form-control" style="color: black;" />
+                          <label class="form-label" for="form3Example3c">Your Email</label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" name="Mobile" id="form3Example3c" class="form-control" style="color: black;" />
+                          <label class="form-label" for="form3Example3c">Mobile</label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="password" name="password" id="form3Example4c" class="form-control" style="color: black;" />
+                          <label class="form-label" for="form3Example4c">Password</label>
+                        </div>
+                      </div>
+                      <div>
+                        <p id="errorMessage-div" style="color: black;"></p>
+                        <% if (message === 'Your signup has been successful. Please login.') { %>
+                          <p class="text-success"><%= message %></p>
+                        <% } else { %>
+                          <p class="text-danger"><%= message %></p>
+                        <% } %>
+                      </div>
+                      
+                      <div class="d-flex justify-content-center mx-3 mb-3 mb-lg-4">
+                        <button type="submit" class="btn btn-primary btn-lg custom-button">Register</button>
+                      
+                        <button type="button" class="btn btn-primary btn-lg custom-button">
+                          <a href="/login" style="color: rgb(0, 0, 0); text-decoration: none;">Login </a>
+                        </button>
+                      </div>
+                    </form>
+                   <% if(typeof message!=='undefined')
+                   {
+                    %>
+                    <!-- <p style="color:green;"><%=message %></p> -->
+                    <%
+                   } %>
+                  </div>
+                   <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                    <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                      class="img-fluid" alt="Sample image">
+                   </div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    
+  </div>
+  <script>
+    function userlogin(){
+      var Name= document.form.name.value;
+      var Lastname=document.form.lname.value;
+      var Email=document.form.email.value;
+     
+      var Mobile=document.form.Mobile.value;
+
+      var Password=document.form.password.value;
+      var reg =    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var passerror= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])(?=.{8,})/;
+      var error=document.getElementById("errorMessage-div");
+    
+
+      if(Name==""){
+          error.innerHTML='Please enter your name'
+          error.style.color = 'red';
+          return false;
+      }
+      if (/\d/.test(Name)) {
+      error.innerHTML=' First Name field: Number not allowed';
+      error.style.color = 'red';
+      return false;
+      }
+      if (/\d/.test(Lastname)) {
+      error.innerHTML='Last Name field: Number not allowed'
+      error.style.color = 'red';
+
+
+      return false;
+      }
+      if(Lastname==""){
+          error.innerHTML='Please enter your LastName '
+      error.style.color = 'red';
+
+          return false;
+      }
+      if(Email==""){
+          error.innerHTML='Please enter your email id'
+      error.style.color = 'red';
+
+          return false;
+      }
+      if(Mobile==""){
+          error.innerHTML='Please enter your Mobile Number '
+      error.style.color = 'red';
+
+          return false;
+      }
+      if(reg.test(Email)==false){
+        error.innerHTML='invalid email id'
+      error.style.color = 'red';
+
+        return false;
+      }
+      if(passerror.test(Password)==false){
+          error.innerHTML='Password must contain 8 characters, at least one special character, and at least one uppercase letter'
+      error.style.color = 'red';
+
+          return false;
+      }
+      
+      return true;
+    
+    }
+    </script>
+</section>
+
+
+  

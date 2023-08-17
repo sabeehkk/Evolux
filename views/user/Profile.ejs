@@ -1,0 +1,261 @@
+
+<%-include('../user/layout/nav.ejs')%>
+
+
+
+<style>
+    body{
+background: -webkit-linear-gradient(left, #f9f9f9, #ffffff);
+}
+
+.emp-profile{
+padding: 3%;
+margin-top: 5%;
+margin-bottom: 3%;
+border-radius: 0.5rem;
+background: #9bd3e6;
+}
+.profile-img{
+text-align: center;
+}
+.profile-img img{
+width: 70%;
+height: 100%;
+}
+.profile-img .file {
+position: relative;
+overflow: hidden;
+margin-top: -20%;
+width: 70%;
+border: none;
+border-radius: 0;
+font-size: 15px;
+background: #212529b8;
+}
+.profile-img .file input {
+position: absolute;
+opacity: 0;
+right: 0;
+top: 0;
+}
+.profile-head h5{
+color: #333;
+}
+.profile-head h6{
+color: #0062cc;
+}
+.profile-edit-btn{
+border: none;
+border-radius: 1.5rem;
+width: 70%;
+padding: 2%;
+font-weight: 600;
+color: #6c757d;
+cursor: pointer;
+}
+.proile-rating{
+font-size: 12px;
+color: #818182;
+margin-top: 5%;
+}
+.proile-rating span{
+color: #495057;
+font-size: 15px;
+font-weight: 600;
+}
+.profile-head .nav-tabs{
+margin-bottom:5%;
+}
+.profile-head .nav-tabs .nav-link{
+font-weight:600;
+border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+border: none;
+border-bottom:2px solid #0062cc;
+}
+.profile-work{
+padding: 14%;
+margin-top: -15%;
+}
+.profile-work p{
+font-size: 12px;
+color: #818182;
+font-weight: 600;
+margin-top: 10%;
+}
+.profile-work a{
+text-decoration: none;
+color: #495057;
+font-weight: 600;
+font-size: 14px;
+}
+.profile-work ul{
+list-style: none;
+}
+.profile-tab label{
+font-weight: 600;
+}
+.profile-tab p{
+font-weight: 600;
+color: #0062cc;
+}
+.container.emp-profile {
+    padding-top: 10px;
+}
+
+    .emp-profile {
+        /* Set the desired height and width for the div */
+        height: 500px;
+        width: 800px;
+        /* You can also add other styles like margin, padding, etc. */
+        /* For example: */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #a5c7c8;
+    }
+    .emp-profile {
+        /* Increase only the height */
+        height: 600px;
+        /* Or increase only the width */
+        width: 1000px;
+    }
+
+</style>
+
+<div class="container emp-profile pt-5">
+            <!-- <form method="post pt-5"> -->
+                <div class="row ">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="profile-head">
+                                    <h5>
+                                        <%=userdata[0].firstName%>
+                                    </h5>
+                                    <h6>
+                                       @<%=userdata[0].firstName%>
+                                    </h6>
+                                    
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/editProfile"><input type="submit" class="tp_btn" name="btnAddMore" value="Edit Profile"/></a>
+                        <!-- <a href="/logout"><button type="button" class="btn btn-dark m-2">Log Out</button></a> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="m-5 ">
+                        <a href="/manageAddress"><button type="button" class="tp_btn">Manage Address</button></a>
+                        <br><br>
+                        <a href="/orderHistory"><button type="button" class="tp_btn">My Orders</button></a>
+                        <br><br>
+                        <a href="/walletHistory"><button type="button" class="tp_btn">Wallet History</button></a>
+                        
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%=userdata[0].firstName%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><%=userdata[0].email%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>+91 <%=userdata[0].mobile%></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Wallet</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>₹<%= Math.floor(WalletTotal) %></p>
+                                            </div>
+                                        </div>
+                                     </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Experience</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hourly Rate</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>10$/hr</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Total Projects</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>230</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>English Level</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Expert</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Availability</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>6 months</p>
+                                            </div>
+                                        </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Your Bio</label><br/>
+                                        <p>Your detail description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </form>            -->
+        </div>
+
+
+
+
+

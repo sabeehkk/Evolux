@@ -1,0 +1,38 @@
+{
+  "name": "my-login-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "glob-parent": "^5.1.2",
+    "got": "^11.8.5",
+    "init": "^0.1.2",
+    "make-dir": "^4.0.0",
+    "moment": "^2.29.4",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.2.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.3",
+    "nodemon": "^1.14.9",
+    "otp-generator": "^4.0.1",
+    "razorpay": "^2.9.0",
+    "semver": "^7.5.2",
+    "twilio": "^4.11.2",
+    "uuid": "^9.0.0"
+  }
+}
