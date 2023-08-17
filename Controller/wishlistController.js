@@ -14,6 +14,7 @@ const loadWishlist = async (req, res) => {
       const userData = await User.findOne({ _id: user }).populate(
         "wishlist.product"
       );
+
       res.render("user/Wishlist", {
         user: userData,
         category: categoryData,
@@ -55,7 +56,11 @@ const addWishlist = async (req, res) => {
 //Delete wishlist-------------------------------------------------------
 const deleteWishlist = async (req, res) => {
   try {
+    console.log('wishlist delete');
+
     const id = req.body.id;
+    console.log('wishlist data',id);
+
     const data = await User.findOneAndUpdate(
       { "wishlist.product": id },
       { $pull: { wishlist: { product: id } } }

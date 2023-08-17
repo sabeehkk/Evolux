@@ -180,7 +180,7 @@
                                 <div class="display-flex align-center">
                                    
                                     <div class="img-product">
-                                        <img src="/product_images/<%= x.product.image[0].fileName %>" alt="" class="mCS_img_loaded">
+                                        <img src="/product_images/<%= x.product[0].image[0].fileName %>" alt="" class="mCS_img_loaded">
                                     </div>
                                     
 
@@ -189,18 +189,19 @@
                                     </div>
                                 </div>
                             </td>
-                            <td width="15%" class="price"><%= x.product.price %></td>
+                            <td width="15%" class="price"><%= x.product[0].price %></td>
                             <td width="15%"><span class="in-stock-box">In Stock</span></td>
-                            <form action="/addTocart/<%= x.product._id %>" method="post">
+                            <form action="/addTocart/<%= x.product[0]._id %>" method="post">
                                 <td width="15%">
                                   <button class="round-black-btn small-btn" type="submit">Add to Cart</button>
                                 </td>
                               </form>
-                             
+                              
+                            
 
                               <td>
                                 <form action="/deleteWishlist" method="post">
-                                  <input type="hidden" name="id" value="<%= x.product._id %>">
+                                  <input type="hidden" name="id" value="<%= x.product[0]._id %>">
                                   <button type="submit" class="round-black-btn small-btn">Delete</button>
                                 </form>
                               </td>
@@ -213,6 +214,29 @@
             </div>
 
             
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script>
+    function deleteFromWishlist(productId) {
+        $.ajax({
+            url: '/deleteWishlist',
+            method: 'POST',
+            data: { productId: productId },
+            success: function(response) {
+                if (response.success) {
+                    // Reload or update the wishlist section
+                    $('.table-wishlist').load('/wishlist .table-wishlist');
+                    console.log('Item removed from wishlist');
+                } else {
+                    console.log('Failed to remove item from wishlist');
+                }
+            },
+            error: function() {
+                console.log('Error occurred during the AJAX request');
+            }
+        });
+    }
+</script> -->
+
 
 			    </div>
 			</div>
