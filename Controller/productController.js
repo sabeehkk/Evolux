@@ -31,7 +31,7 @@ const showProduct = async (req, res, next) => {
 const addProduct = async (req, res, next) => {
   try {
     const categoryData = await Category.find({ Is_status: true });
-    res.render("add_product", { categoryData: categoryData });
+    res.render("add_Product", { categoryData: categoryData });
   } catch (error) {
     next(error);
   }
