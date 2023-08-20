@@ -46,18 +46,20 @@
             <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Return</button>
           </a>
           <% } else if (item.status == 'pending' || item.status == 'shipped') { %>
-          <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
-            <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Cancel</button>
-          </a>
-          <% } else if (item.status == 'cancel') { %>
-          <p class="text-danger">Canceled</p>
+            <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
+                <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;"
+                        onclick="return confirmCancellation()">Cancel</button>
+            </a>
+         <% } else if (item.status == 'cancel') { %>
+                    <p class="text-danger">Canceled</p>
           <% } else if (item.status == 'Return') { %>
           <p style="color: green;" class="text-success">Returned</p>
-          <% } else if (item.status == 'processing') { %>
-          <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
-            <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;">Cancel</button>
-          </a>
-          <% } %>
+            <% } else if (item.status == 'processing') { %>
+            <a href="/userOrderAction?orderId=<%= item.orderId %>&action=cancel&paymentType=<%= item.PaymentType %>">
+                <button type="button" class="btn_1 delete-button" style="font-size: 18px; padding: 4px 12px;"
+                        onclick="return confirmCancellation()">Cancel</button>
+            </a>
+        <% } %>
         </td>
         <td>
           <a href="/orderDetails?orderId=<%= item.orderId %>">info</a>
@@ -90,3 +92,9 @@
     $('#example').DataTable();
   });
 </script>
+<script>
+  function confirmCancellation() {
+      var confirmed = confirm("Are you sure you want to cancel this order?");
+      return confirmed;
+  }
+  </script>
