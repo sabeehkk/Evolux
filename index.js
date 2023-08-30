@@ -44,21 +44,21 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use(express.static(path.join(__dirname,'public/admin')))
 
 
-// app.get('*', function(req, res, next) {
-//     const err = new Error('Not Found');
-//     err.statusCode = 404;
-//     next(err);
-//   });
+app.get('*', function(req, res, next) {
+    const err = new Error('Not Found');
+    err.statusCode = 404;
+    next(err);
+  });
   
-//   app.use((err,req,res,next)=>{
-//     if( err.statusCode==404){
-//         res.render('404')
-//     }
-//     res.statusCode=500
-//     return res.render('500', { statusCode: res.statusCode });
+  app.use((err,req,res,next)=>{
+    if( err.statusCode==404){
+        res.render('404')
+    }
+    res.statusCode=500
+    return res.render('500', { statusCode: res.statusCode });
 
     
-//   })
+  })
 
 
 app.listen(3000,()=>{
