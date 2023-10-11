@@ -200,7 +200,6 @@ const orderHistory = async (req, res) => {
           }
         })
       );
-
       res.render("user/OrderHistory", {
         orders: orders,
         userName: userName,
