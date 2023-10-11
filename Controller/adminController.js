@@ -113,7 +113,6 @@ const logout = async (req, res) => {
     console.log(error.message);
   }
 };
-
 //User Management--------------------------------
 
 const userManagement = async (req, res) => {
