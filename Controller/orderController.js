@@ -80,7 +80,6 @@ const PlaceOrder = async (req, res) => {
 
       total = result[0].total;
     }
-    console.log(total, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     total = (total - userData.discount).toFixed(2);
     let payment = req.body.paymentMethod;
     const newOrder = {
