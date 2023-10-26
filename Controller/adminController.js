@@ -27,7 +27,6 @@ const verifyLogin = async (req, res) => {
       if (passwordMatch) {
         req.session.admin_id = adminData._id;
         res.redirect("/admin/home");
-        console.log("home is working");
       } else {
         res.render("login", { message: " Password is incorrect " });
       }
