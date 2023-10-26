@@ -195,7 +195,7 @@ const changeQuantity = async (req, res, next) => {
       })
       .catch((error) => {
         // Handle any errors
-        console.log(error);
+         console.log(error);
       });
   } else {
     let existinQuantity = cartItem.quantity;
