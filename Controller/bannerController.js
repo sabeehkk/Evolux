@@ -26,7 +26,6 @@ const loadBanner = async (req, res) => {
 const addBanner = async (req, res) => {
   try {
     const product = await Product.find();
-
     res.render("addBanner", { product });
   } catch (error) {
     console.log(error.message);
@@ -54,7 +53,6 @@ const newBanner = async (req, res) => {
           .catch((err) => {
             console.log(err);
           });
-
         res.redirect("/admin/banner"); // Redirect to product listing page
       } catch (error) {
         console.log(error.message);
